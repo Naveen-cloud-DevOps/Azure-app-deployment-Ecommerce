@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+<h1>Checkout</h1>
+
+<div class="product">
+
+    <img src="{{ product_data.image }}" width="250">
+
+    <div>
+        <h2>{{ product_data.name }}</h2>
+        <p>{{ product_data.description }}</p>
+        <h3>{{ product_data.price }}</h3>
+    </div>
+
+</div>
+
+<form action="/submit-order" method="POST">
+
+    <input type="hidden"
+           name="product"
+           value="{{ product }}">
+
+    <label>Full Name</label>
+    <input type="text" name="name" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Address</label>
+    <input type="text" name="address" required>
+
+    <br><br>
+
+    <button type="submit">
+        Submit Order
+    </button>
+
+</form>
+
+</div>
+
+</body>
+</html>

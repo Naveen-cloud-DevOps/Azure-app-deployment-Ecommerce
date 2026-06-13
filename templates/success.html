@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Success</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Successfully Purchased!</h1>
+
+    <img src="{{ product_data.image }}"
+         width="300">
+
+    <h2>{{ product_data.name }}</h2>
+
+    <p>
+        Your order has been placed successfully.
+    </p>
+
+    <a href="/">Back To Home</a>
+
+</div>
+
+</body>
+</html>
