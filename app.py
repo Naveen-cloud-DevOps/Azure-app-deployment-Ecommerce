@@ -18,6 +18,26 @@ PRODUCTS = {
         "price": "$29.99",
         "image": "https://franchiseindia.s3.ap-south-1.amazonaws.com/uploads/news/wi/5a2b878420b31.jpg",
         "description": "Achieve glowing skin with our Radiant Skin Cream."
+    },
+     "mobiles": {
+        "name": "Mobile Phones",
+        "price": "$199.99",
+        "image": "https://www.gorefurbo.com/cdn/shop/collections/Refurbished_Mobile_Phones_1.jpg?v=1695978895",
+        "description": "All types of latest smartphones available with best offers."
+    },
+
+    "snacks": {
+        "name": "Organic Snack Bars",
+        "price": "$19.99",
+        "image": "https://t3.ftcdn.net/jpg/02/52/38/80/360_F_252388016_KjPnB9vglSCuUJAumCDNbmMzGdzPAucK.jpg",
+        "description": "Healthy snack bars made with natural ingredients."
+    },
+
+    "grocery": {
+        "name": "Grocery Items",
+        "price": "$99.99",
+        "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYDATNoFKploew5OMW3etFJIExLq2dOxtNJFVvAiA0rNNB3VLKpAjAwV7SEzg4sIz45Sf_hCc-7MRS4PQM8erBcvLQDel9s2tLmh6s4Lyj7qoHf-rx7oP6F5yhgvPcZHbr09e5sglYptI/w1200-h630-p-k-no-nu/ekiranahome-banner1.jpg",
+        "description": "Fresh grocery products delivered at your doorstep."
     }
 }
 
