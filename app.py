@@ -5,12 +5,13 @@ import os
 app = Flask(__name__)
 
 # Database connection using environment variables
-db = mysql.connector.connect(
-    host=os.environ.get("MYSQL_HOST"),
-    user=os.environ.get("MYSQL_USER"),
-    password=os.environ.get("MYSQL_PASSWORD"),
-    database=os.environ.get("MYSQL_DATABASE")
-)
+def get_db():
+    return mysql.connector.connect(
+        host=os.environ.get("MYSQL_HOST"),
+        user=os.environ.get("MYSQL_USER"),
+        password=os.environ.get("MYSQL_PASSWORD"),
+        database=os.environ.get("MYSQL_DATABASE")
+    )
 
 PRODUCTS = {
     "beauty": {
