@@ -1,10 +1,11 @@
+```python
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 import os
 
 app = Flask(__name__)
 
-# Database connection using environment variables
+# Database Connection
 def get_db():
     return mysql.connector.connect(
         host=os.environ.get("MYSQL_HOST"),
@@ -12,6 +13,27 @@ def get_db():
         password=os.environ.get("MYSQL_PASSWORD"),
         database=os.environ.get("MYSQL_DATABASE")
     )
+
+# Auto Create Table
+def init_db():
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS orders (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        product_name VARCHAR(100) NOT NULL,
+        customer_name VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL,
+        address TEXT NOT NULL,
+        order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
+    db.commit()
+    cursor.close()
+    db.close()
+
 
 PRODUCTS = {
     "beauty": {
@@ -60,28 +82,33 @@ def checkout():
 
 @app.route('/submit-order', methods=['POST'])
 def submit_order():
+    try:
+        product = request.form['product']
+        name = request.form['name']
+        email = request.form['email']
+        address = request.form['address']
 
-    product = request.form['product']
-    name = request.form['name']
-    email = request.form['email']
-    address = request.form['address']
+        db = get_db()
+        cursor = db.cursor()
 
-    cursor = db.cursor()
+        cursor.execute(
+            """
+            INSERT INTO orders
+            (product_name, customer_name, email, address)
+            VALUES (%s, %s, %s, %s)
+            """,
+            (product, name, email, address)
+        )
 
-    sql = """
-    INSERT INTO orders
-    (product_name, customer_name, email, address)
-    VALUES (%s,%s,%s,%s)
-    """
+        db.commit()
 
-    values = (product, name, email, address)
+        cursor.close()
+        db.close()
 
-    cursor.execute(sql, values)
-    db.commit()
+        return redirect(url_for('success', product=product))
 
-    cursor.close()
-
-    return redirect(url_for('success', product=product))
+    except Exception as e:
+        return f"ERROR: {str(e)}"
 
 
 @app.route('/success')
@@ -96,8 +123,12 @@ def success():
 
 
 if __name__ == '__main__':
-    # Port for cloud deployment
-    port = int(os.environ.get("PORT", 8000))
+    try:
+        init_db()
+        print("Database initialized successfully")
+    except Exception as e:
+        print(f"Database initialization error: {e}")
 
-    # Run app on all network interfaces
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
+```
