@@ -123,12 +123,5 @@ def success():
 
 
 if __name__ == '__main__':
-    try:
-        init_db()
-        print("Database initialized successfully")
-    except Exception as e:
-        print(f"Database initialization error: {e}")
-
     port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port)
-```
