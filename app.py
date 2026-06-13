@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
+import os
 
 app = Flask(__name__)
 
+# Database connection using environment variables
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root123",  # Change your password
-    database="shoppingdb"
+    host=os.environ.get("MYSQL_HOST"),
+    user=os.environ.get("MYSQL_USER"),
+    password=os.environ.get("MYSQL_PASSWORD"),
+    database=os.environ.get("MYSQL_DATABASE")
 )
 
 PRODUCTS = {
@@ -47,6 +49,7 @@ def home():
 def checkout():
     product = request.args.get('product')
     product_data = PRODUCTS.get(product)
+
     return render_template(
         'checkout.html',
         product=product,
@@ -92,4 +95,8 @@ def success():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Port for cloud deployment
+    port = int(os.environ.get("PORT", 8000))
+
+    # Run app on all network interfaces
+    app.run(host="0.0.0.0", port=port, debug=True)
