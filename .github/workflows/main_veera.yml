@@ -63,4 +63,4 @@ jobs:
         with:
           app-name: 'veera'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5366FD7654564E0F811A8D90709F7702 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2EE0696D49E3404BB5548332BFB42D5F }}
